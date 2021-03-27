@@ -124,12 +124,31 @@
 ;; Package configurations                                           ;;
 ;; ---------------------------------------------------------------- ;;
 
+;; auto-complete
+(require 'auto-complete)
+(add-hook 'prog-mode-hook 'auto-complete-mode)
+
+(define-key ac-mode-map (kbd "M-/") 'auto-complete)
+;; (define-key ac-mode-map (kbd "TAB") 'auto-complete)
+(setq ac-use-menu-map t)
+(define-key ac-menu-map "\C-g" 'ac-stop)
+
+(ac-linum-workaround)
+(setq
+ ac-auto-show-menu   0.3
+ ac-auto-start       nil
+ ac-auto-show-meun   nil)
+
 ;; magit
 (global-set-key (kbd "C-x g") 'magit-status)
 
 ;; projectile
 ;; (require 'projectile)
 ;; (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+
+;; undo-tree
+(require 'undo-tree)
+(global-undo-tree-mode)
 
 
 
@@ -165,10 +184,12 @@
      srcery-theme
 
      ;; useful misc packages
+     auto-complete
      flycheck
      ;; helm
      magit
      projectile
+     undo-tree
      )))
 
   '(safe-local-variable-values
