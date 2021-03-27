@@ -167,6 +167,7 @@
      bnf-mode
      cmake-mode
      dockerfile-mode
+     gitignore-mode
      gnuplot
      groovy-mode
      jade-mode
