@@ -56,12 +56,12 @@
 
 ;; themes
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/" t)
-(if (locate-file (concat (symbol-name 'custom-srcery) "-theme.el")
-                 custom-theme-load-path '("" "c"))
-    (load-theme 'custom-srcery t)
-  (progn
-    (message "Can't load custom-srcery theme :(")
-    (load-theme 'wombat t)))
+;; (if (locate-file (concat (symbol-name 'custom-srcery) "-theme.el")
+;;       custom-theme-load-path '("" "c"))
+;;   (load-theme 'custom-srcery t)
+;;   (progn
+;;     (message "Can't load custom-srcery theme :(")
+;;     (load-theme 'wombat t)))
 
 
 ;; ---------------------------------------------------------------- ;;
@@ -139,52 +139,9 @@
 (setq package-user-dir (concat user-emacs-directory "elpa/"))
 
 (package-initialize)
-;;(package-refresh-contents)
 
-
-;; ---------------------------------------------------------------- ;;
-;; Package configurations                                           ;;
-;; ---------------------------------------------------------------- ;;
-
-;; auto-complete
-(require 'auto-complete)
-(add-hook 'prog-mode-hook 'auto-complete-mode)
-
-(define-key ac-mode-map (kbd "M-/") 'auto-complete)
-;; (define-key ac-mode-map (kbd "TAB") 'auto-complete)
-(setq ac-use-menu-map t)
-(define-key ac-menu-map "\C-g" 'ac-stop)
-
-(ac-linum-workaround)
-(setq
- ac-auto-show-menu   0.3
- ac-auto-start       nil
- ac-auto-show-menu   nil)
-
-;; magit
-(global-set-key (kbd "C-x g") 'magit-status)
-
-;; projectile
-;; (require 'projectile)
-;; (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-
-;; undo-tree
-(require 'undo-tree)
-(global-undo-tree-mode)
-
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Custom                                                           ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (
+(defvar packages
+  '(
      ;; languages
      bnf-mode
      cmake-mode
@@ -207,26 +164,193 @@
      srcery-theme
 
      ;; useful misc packages
-     auto-complete
-     flycheck
-     ;; helm
+     company
+     dumb-jump
      magit
-     projectile
+     projectile projectile-ripgrep
      undo-tree
-     )))
+     use-package diminish
+     which-key
+     yasnippet yasnippet-snippets
 
- '(safe-local-variable-values
-   (quote
-    ((encoding . utf-8)
-     (python-shell-interpreter . "~/.venv/bin/python")
-     (eval TeX-run-style-hooks "beamer")))))
+     all-the-icons
+     dashboard
+     doom-themes
+
+     elpy pyvenv
+     ;; auto-virtualenv
+     
+     ;; ivy counsel swiper counsel-projectile
+
+     ;; helm helm-swoop
+     )
+  )
+
+(mapc #'(lambda (package)
+          (unless (package-installed-p package)
+            (package-install package)))
+  packages)
+
+
+;; ---------------------------------------------------------------- ;;
+;; Package configurations                                           ;;
+;; ---------------------------------------------------------------- ;;
+
+;; all-the-icons
+(use-package all-the-icons)
+;; Do M-x all-the-icons-install-fonts first time
+
+;; company-mode
+(use-package company
+  :hook (prog-mode . company-mode)
+  ;; :diminish company-mode " Company"
+  :bind (
+	  :map company-mode-map
+	  ("M-/" . company-complete)
+	  ;; ("TAB" . company-complete)
+	  )
+  :init
+  (setq
+    company-idle-delay 0.5
+    company-minimum-prefix-length 3
+    )
+  :config
+  )
+
+;; dashboard
+(use-package dashboard
+  :init
+  (setq
+    dashboard-startup-banner 'logo
+    dashboard-center-content t
+    dashboard-items '((projects . 5)
+		       (agenda . 3)
+		       (recents . 5))
+    dashboard-set-heading-icons t
+    dashboard-set-file-icons t)
+  (setq dashboard-set-navigator t)
+
+  :config
+  (if (not enable-desktop-save)
+    (progn 
+      (dashboard-setup-startup-hook)
+      (doom-themes-org-config))))
+
+(use-package doom-themes
+  :init
+  (setq
+    doom-themes-enable-bold t
+    doom-themes-enable-italic t)
+  :ensure t
+  :config
+  (load-theme 'doom-monokai-classic t nil)
+  (load-theme 'doom-molokai t nil)
+  )
+
+;; elpy
+(use-package elpy
+  :config
+  (add-hook 'python-mode-hook 'elpy-enable))
+
+;; magit
+(use-package magit
+  :config
+  (global-set-key (kbd "C-x g") 'magit-status))
+
+;; projectile
+(use-package projectile
+  :init
+  (setq
+    projectile-switch-project-action #'projectile-dired)
+  :bind (
+	  :map projectile-mode-map
+	  ("C-x p" . projectile-command-map))
+  :config
+  (projectile-mode +1))
+
+;; undo-tree
+(use-package undo-tree
+  :config
+  (global-undo-tree-mode)
+  )
+
+;; which-key
+(use-package which-key
+  :init
+  (setq  which-key-idle-delay 0.35)
+  :config
+  (which-key-mode)
+  (which-key-setup-side-window-bottom))
+
+;; yasnippet
+(use-package yasnippet
+  :config
+  (yas-global-mode 1))
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Custom                                                           ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(custom-set-variables
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+  '(package-selected-packages
+     (quote
+       (
+	 ;; languages
+	 bnf-mode
+	 cmake-mode
+	 dockerfile-mode
+	 gitignore-mode
+	 gnuplot
+	 groovy-mode
+	 jade-mode
+	 jenkinsfile-mode
+	 json-mode
+	 markdown-mode
+	 pug-mode
+	 sparql-mode
+	 typescript-mode
+	 yaml-mode
+
+	 ;; themes
+	 kaolin-themes
+	 monokai-theme
+	 srcery-theme
+
+	 ;; useful misc packages
+	 company
+	 dumb-jump
+	 flycheck
+	 magit
+	 projectile projectile-ripgrep
+	 undo-tree
+	 use-package diminish
+	 which-key
+	 yasnippet yasnippet-snippets
+
+	 all-the-icons
+	 dashboard
+	 doom-themes
+
+	 elpy pyvenv
+	 )))
+
+  '(safe-local-variable-values
+     (quote
+       ((encoding . utf-8)
+	 (python-shell-interpreter . "~/.venv/bin/python")
+	 (eval TeX-run-style-hooks "beamer")))))
 
 (custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+  )
 
 
 
