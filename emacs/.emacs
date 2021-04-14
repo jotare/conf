@@ -89,6 +89,10 @@
 ;; Programming                                                      ;;
 ;; ---------------------------------------------------------------- ;;
 
+(add-hook 'prog-mode-hook 'outline-minor-mode)
+;; (xref-etags-mode)			; Use etags as xref backend
+
+
 ;; C
 (setq c-basic-offset 4)
 
