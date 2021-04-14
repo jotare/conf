@@ -54,8 +54,7 @@
 (add-to-list 'auto-mode-alist '("\\.plt$\\'" . gnuplot-mode)) ; GnuPlot files
 (add-to-list 'auto-mode-alist '("\\.m\\'" . octave-mode)) ; Octave (overwrite Obj-C)
 
-
-;; Themes
+;; themes
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/" t)
 (if (locate-file (concat (symbol-name 'custom-srcery) "-theme.el")
                  custom-theme-load-path '("" "c"))
@@ -76,18 +75,18 @@
 
 (require 'ob-shell)			; execute code in <sTAB env w/ C-c C-c
 (org-babel-do-load-languages
- 'org-babel-load-languages
- '(
-   (shell . t) (python . t) (perl . t) (octave . t) ; programming
-   (ditaa . t) (dot . t)			    ; graphics
-  ))
+  'org-babel-load-languages
+  '(
+     (shell . t) (python . t) (perl . t) (octave . t) ; programming
+     (ditaa . t) (dot . t)			      ; graphics
+     ))
 
 ;; tramp
 (setq tramp-default-method "ssh")	; faster than the default scp
 
 
 ;; ---------------------------------------------------------------- ;;
-;; Programming languages                                            ;;
+;; Programming                                                      ;;
 ;; ---------------------------------------------------------------- ;;
 
 ;; C
