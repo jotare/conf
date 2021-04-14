@@ -19,6 +19,11 @@
   (with-current-buffer " *load*"
     (goto-char (point-max))))
 
+;; desktop-save
+;; ============
+(if (getenv "emacs_enable_desktop_save")
+  (setq enable-desktop-save t)
+  (setq enable-desktop-save nil))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -49,8 +54,6 @@
 (add-to-list 'auto-mode-alist '("\\.plt$\\'" . gnuplot-mode)) ; GnuPlot files
 (add-to-list 'auto-mode-alist '("\\.m\\'" . octave-mode)) ; Octave (overwrite Obj-C)
 
-;; (desktop-save-mode 1)			; save emacs desktop on exit
-;; (setq desktop-load-locked-desktop nil)
 
 ;; Themes
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/" t)
@@ -231,3 +234,43 @@
 ;; (package-refresh-contents)
 ;; (package-install-selected-packages)
 
+
+;; yasnippet-snippets
+;; remove 'pdb' 'from' and 'super' from
+;; .emacs.d/elpa/yasnippet-snippets-.../snippets/python-mode,
+;; duplicated in elpa/elpy-...
+
+
+;; desktop-save
+;; -------------------------------------------------------------------
+;; Uncomment or eval variable to enable desktop save/load
+;; (setq enable-desktop-save t)
+(if enable-desktop-save
+  (progn
+    (require 'desktop)
+    ;; desktop-mode variables
+    (setq				; desktop-mode variable
+      desktop-dirname default-directory
+      desktop-save 'ask-if-new
+      desktop-load-locked-desktop 'ask)
+
+    (setq desktop-filename (concat
+			     desktop-dirname desktop-base-file-name)
+      desktop-loaded nil)
+
+    (defun on-desktop-loaded ()
+      (setq desktop-loaded t)
+      (run-with-idle-timer 0 nil #'global-linum-mode))
+
+    (add-hook 'desktop-after-read-hook 'on-desktop-loaded)
+
+    (if (file-exists-p desktop-filename)
+      (desktop-change-dir desktop-dirname)
+      (message "%s %s" "Can't load desktop-dirname" desktop-dirname))
+
+    (defun desktop-save-on-exit ()
+      "save desktop on exit"
+      (if desktop-loaded
+	(desktop-save desktop-dirname)))
+
+    (add-hook 'kill-emacs-hook 'desktop-save-on-exit)))
