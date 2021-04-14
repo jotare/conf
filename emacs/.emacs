@@ -2,6 +2,30 @@
 ;; .emacs                                                           ;;
 ;; Author: jare                                                     ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; This file is open source.
+;; 
+;; Here, some tips and help:
+;; 
+;; Use (load "file.el") or (load "file.elc") to load additional
+;; configuration files, function definitions, themes...
+;; 
+;; The first time you use this .emacs file, you could need to execute
+;; the following commands:
+;; (package-list-packages)
+;; (package-refresh-contents)
+;; (package-install-selected-packages)
+;;
+;; To install all-the-icons fonts, do:
+;; M-x all-the-icons-install-fonts
+;; 
+;; yasnippet-snippets Some yasnippets are duplicated between
+;; yasnippet-snippets and elpy snippets. You might want to delete the
+;; duplicated ones to autocomplete without having to make a choice
+;; every time. If you want the elpy snippets remove 'pdb' 'from' and
+;; 'super' from
+;; .emacs.d/elpa/yasnippet-snippets-.../snippets/python-mode/,
+;; they are duplicated inside elpa/elpy-.../snippets/python-mode/
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Environment configuration                                        ;;
@@ -120,6 +144,10 @@
 ;; you don't want it, just comment it out by adding a semicolon to the
 ;; start of the line.
 
+;; Fix to some emacs versions doing 'Bad requests' to
+;; package-archives. Uncomment if needed
+;; (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3") 
+
 (require 'package)
 
 (setq package-archives
@@ -198,7 +226,6 @@
 
 ;; all-the-icons
 (use-package all-the-icons)
-;; Do M-x all-the-icons-install-fonts first time
 
 ;; company-mode
 (use-package company
@@ -262,9 +289,7 @@
   :init
   (setq
     projectile-switch-project-action #'projectile-dired)
-  :bind (
-	  :map projectile-mode-map
-	  ("C-x p" . projectile-command-map))
+  :bind (("C-x p" . projectile-command-map))
   :config
   (projectile-mode +1))
 
@@ -293,52 +318,13 @@
 ;; Custom                                                           ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
   '(package-selected-packages
      (quote
-       (
-	 ;; languages
-	 bnf-mode
-	 cmake-mode
-	 dockerfile-mode
-	 gitignore-mode
-	 gnuplot
-	 groovy-mode
-	 jade-mode
-	 jenkinsfile-mode
-	 json-mode
-	 markdown-mode
-	 pug-mode
-	 sparql-mode
-	 typescript-mode
-	 yaml-mode
-
-	 ;; themes
-	 kaolin-themes
-	 monokai-theme
-	 srcery-theme
-
-	 ;; useful misc packages
-	 company
-	 dumb-jump
-	 flycheck
-	 magit
-	 projectile projectile-ripgrep
-	 undo-tree
-	 use-package diminish
-	 which-key
-	 yasnippet yasnippet-snippets
-
-	 all-the-icons
-	 dashboard
-	 doom-themes
-
-	 elpy pyvenv
-	 )))
-
+       (bnf-mode cmake-mode dockerfile-mode gitignore-mode gnuplot groovy-mode jade-mode jenkinsfile-mode json-mode markdown-mode pug-mode sparql-mode typescript-mode yaml-mode kaolin-themes monokai-theme srcery-theme company dumb-jump flycheck magit projectile projectile-ripgrep undo-tree use-package diminish which-key yasnippet yasnippet-snippets all-the-icons dashboard doom-themes elpy pyvenv)))
   '(safe-local-variable-values
      (quote
        ((encoding . utf-8)
@@ -346,30 +332,11 @@
 	 (eval TeX-run-style-hooks "beamer")))))
 
 (custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
-  )
-
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Help and comments                                                ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Use (load "file.el") or (load "file.elc") to load additional
-;; configuration files, function definitions, themes...
-
-;; Execute this the first time to install packages
-;; (package-list-packages)
-;; (package-refresh-contents)
-;; (package-install-selected-packages)
-
-
-;; yasnippet-snippets
-;; remove 'pdb' 'from' and 'super' from
-;; .emacs.d/elpa/yasnippet-snippets-.../snippets/python-mode,
-;; duplicated in elpa/elpy-...
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
 
 
 ;; desktop-save
