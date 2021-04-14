@@ -119,13 +119,17 @@
 (require 'package)
 
 (setq package-archives
-      '(("melpa-stable" . "https://stable.melpa.org/packages/")
-	("gnu-elpa" . "http://elpa.gnu.org/packages/")
-	("melpa" . "https://melpa.org/packages/")
-	))
+  '(
+     ;; ("melpa-stable" . "https://stable.melpa.org/packages/")
+     ("gnu-elpa" . "http://elpa.gnu.org/packages/")
+     ("melpa" . "https://melpa.org/packages/")
+     ))
 
 (setq package-archive-priorities
-      '(("melpa-stable" . 3) ("gnu-elpa"     . 2) ("melpa"        . 1)))
+  '(
+     ;; ("melpa-stable" . 3)
+     ("gnu-elpa"     . 2)
+     ("melpa"        . 1)))
 
 ;; Set the directory where you want to install the packages
 (setq package-user-dir (concat user-emacs-directory "elpa/"))
