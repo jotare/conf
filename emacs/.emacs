@@ -3,6 +3,12 @@
 ;; Author: jare                                                     ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Environment configuration                                        ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Spacemacs
+;; =========
 ;; Uncomment next line or set SPACEMACS env var to "1" to boot emacs
 ;; with .spacemacs configuration
 
@@ -20,10 +26,13 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq inhibit-startup-message t)
 (setq ring-bell-function 'ignore)
-(toggle-debug-on-error)
+;; (toggle-debug-on-error)
+(tool-bar-mode -1)
+;; (global-hl-line-mode +1)
+;; (show-paren-mode -1)
 
 ;; line numbering
-(global-linum-mode t)
+(global-linum-mode t) 			; also set in desktop-save!
 (column-number-mode t)
 
 ;; enable disabled commands
@@ -86,6 +95,9 @@
 (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
 (setq reftex-plug-into-AUCTeX t)
 
+;; LISP
+(setq lisp-indent-offset 2)
+
 ;; Python
 (set-variable 'python-shell-interpreter "/usr/bin/python3") ; C-c C-p
 
@@ -137,7 +149,7 @@
 (setq
  ac-auto-show-menu   0.3
  ac-auto-start       nil
- ac-auto-show-meun   nil)
+ ac-auto-show-menu   nil)
 
 ;; magit
 (global-set-key (kbd "C-x g") 'magit-status)
@@ -193,12 +205,11 @@
      undo-tree
      )))
 
-  '(safe-local-variable-values
+ '(safe-local-variable-values
    (quote
     ((encoding . utf-8)
      (python-shell-interpreter . "~/.venv/bin/python")
-     (eval TeX-run-style-hooks "beamer"))))
-  )
+     (eval TeX-run-style-hooks "beamer")))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
