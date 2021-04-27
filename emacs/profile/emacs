@@ -80,12 +80,6 @@
 
 ;; themes
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/" t)
-;; (if (locate-file (concat (symbol-name 'custom-srcery) "-theme.el")
-;;       custom-theme-load-path '("" "c"))
-;;   (load-theme 'custom-srcery t)
-;;   (progn
-;;     (message "Can't load custom-srcery theme :(")
-;;     (load-theme 'wombat t)))
 
 
 ;; ---------------------------------------------------------------- ;;
