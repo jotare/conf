@@ -116,7 +116,6 @@
 (add-hook 'prog-mode-hook 'outline-minor-mode)
 ;; (xref-etags-mode)			; Use etags as xref backend
 
-
 ;; C
 (setq c-basic-offset 4)
 
@@ -144,11 +143,13 @@
 ;; you don't want it, just comment it out by adding a semicolon to the
 ;; start of the line.
 
-;; Fix to some emacs versions doing 'Bad requests' to
-;; package-archives. Uncomment if needed
-;; (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3") 
-
 (require 'package)
+
+;; Workaround for problems with 'Bad Request' when trying to install
+;; packages in older emacs versions
+(when (and (>= libgnutls-version 30603)
+            (version<= (number-to-string emacs-major-version) "26.2"))
+  (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3"))
 
 (setq package-archives
   '(
@@ -167,6 +168,8 @@
 (setq package-user-dir (concat user-emacs-directory "elpa/"))
 
 (package-initialize)
+(unless package-archive-contents
+  (package-refresh-contents))
 
 (defvar packages
   '(
@@ -207,7 +210,7 @@
 
      elpy pyvenv
      ;; auto-virtualenv
-     
+
      ;; ivy counsel swiper counsel-projectile
 
      ;; helm helm-swoop
@@ -219,6 +222,8 @@
             (package-install package)))
   packages)
 
+(require 'use-package)
+(setq use-package-always-ensure t)
 
 ;; ---------------------------------------------------------------- ;;
 ;; Package configurations                                           ;;
@@ -230,7 +235,7 @@
 ;; company-mode
 (use-package company
   :hook (prog-mode . company-mode)
-  ;; :diminish company-mode " Company"
+  :diminish company-mode  ;; " Company"
   :bind (
 	  :map company-mode-map
 	  ("M-/" . company-complete)
@@ -240,6 +245,7 @@
   (setq
     company-idle-delay 0.5
     company-minimum-prefix-length 3
+    company-selection-wrap-around t
     )
   :config
   )
@@ -303,6 +309,7 @@
 (use-package which-key
   :init
   (setq  which-key-idle-delay 0.35)
+  :diminish which-key-mode
   :config
   (which-key-mode)
   (which-key-setup-side-window-bottom))
