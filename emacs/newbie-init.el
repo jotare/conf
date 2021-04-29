@@ -85,6 +85,7 @@
 ;; millores de configuracions que en un inici, poden ser una mica
 ;; difícils o confoses
 (use-package better-defaults)
+(menu-bar-mode +1)                      ; re-enable menu-bar
 
 ;; autocompletat activat pels modes de programació
 (use-package company
