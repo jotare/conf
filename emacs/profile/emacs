@@ -231,19 +231,28 @@
 
 ;; company-mode
 (use-package company
+  :init
+  (setq
+    company-idle-delay 0.35
+    company-minimum-prefix-length 2
+    company-selection-wrap-around t)
   :hook (prog-mode . company-mode)
   :diminish company-mode  ;; " Company"
   :bind (
 	  :map company-mode-map
 	  ("M-/" . company-complete)
 	  ;; ("TAB" . company-complete)
+	  :map company-active-map
+	  ("C-n" . company-select-next)
+	  ("C-p" . company-select-previous)
+	  ("C-v" . company-next-page)
+	  ("M-v" . company-previous-page)
+	  ("M-<" . company-select-first)
+	  ("M->" . company-select-last)
+	  ("C-o" . company-other-backend)
+	  ("C-c h" . company-quickhelp-manual-begin)
+	  ("<escape>" . company-abort)
 	  )
-  :init
-  (setq
-    company-idle-delay 0.5
-    company-minimum-prefix-length 3
-    company-selection-wrap-around t
-    )
   :config
   )
 
