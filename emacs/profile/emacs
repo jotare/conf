@@ -61,8 +61,11 @@
 ;; (show-paren-mode -1)
 
 ;; line numbering
-(global-linum-mode t) 			; also set in desktop-save!
+(global-display-line-numbers-mode t)
 (column-number-mode t)
+
+(dolist (mode '(shell-mode-hook term-mode-hook eshell-mode-hook))
+	  (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
 ;; enable disabled commands
 (put 'upcase-region 'disabled nil)
@@ -358,8 +361,7 @@
       desktop-loaded nil)
 
     (defun on-desktop-loaded ()
-      (setq desktop-loaded t)
-      (run-with-idle-timer 0 nil #'global-linum-mode))
+      (setq desktop-loaded t))
 
     (add-hook 'desktop-after-read-hook 'on-desktop-loaded)
 
