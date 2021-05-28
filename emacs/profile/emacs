@@ -194,6 +194,7 @@
 
      ;; useful misc packages
      company
+     diminish
      dumb-jump
      magit
      projectile projectile-ripgrep
@@ -288,6 +289,11 @@
   (load-theme 'jare t nil)
   )
 
+;; diminish
+(use-package diminish
+  :config
+  (diminish 'outline-minor-mode))
+
 ;; elpy
 (use-package elpy
   :config
@@ -309,6 +315,7 @@
 
 ;; undo-tree
 (use-package undo-tree
+  :diminish
   :config
   (global-undo-tree-mode)
   )
