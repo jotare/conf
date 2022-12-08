@@ -1,4 +1,8 @@
 (
+  ;; Doom emacs
+  ("doom" . ((user-emacs-directory . "~/.emacs.d.shims/doom/sources")
+              (env . (("DOOMDIR" . "~/.emacs.d.shims/doom/doom.d")))))
+
   ;; Newbie configuration for iTIC students
   ("newbie" . ((user-emacs-directory . "~/.emacs.d.shims/newbie/newbie.d")
                (user-init-file . "~/.emacs.d.shims/newbie/newbie.d/init.el")))

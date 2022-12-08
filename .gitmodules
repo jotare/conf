@@ -1,3 +1,6 @@
 [submodule "emacs/profile/.emacs.d"]
 	path = emacs/profile/.emacs.d
 	url = git@github.com:plexus/chemacs2.git
+[submodule "emacs/profile/.emacs.d.shims/doom/sources"]
+	path = emacs/profile/.emacs.d.shims/doom/sources
+	url = git@github.com:doomemacs/doomemacs.git
