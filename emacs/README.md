@@ -1,13 +1,13 @@
-# emacs
+# Emacs
 
-This directory contains emacs configuration files. In each
-subdirectory you can find a complete emacs configuration.
-
+This directory contains all my emacs configurations. In each
+subdirectory, you can find a complete emacs configuration.
 
 ## profile
 
-It's my current configuration, so it's a bit experimental, it will be
-updated with new packages and changes anb may be a bit unstable.
+`profile` is my Emacs configuration, it my change a lot and it can be
+unstable to use. I currently use `chemacs2` to be able to switch and
+test different Emacs configurations and distributions.
 
 
 ## newbie
