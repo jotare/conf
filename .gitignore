@@ -20,7 +20,7 @@ tramp
 /eshell/lastdir
 
 # elpa packages
-/elpa/
+**/elpa/
 
 # reftex files
 *.rel
@@ -47,3 +47,20 @@ flycheck_*.el
 # network security
 /network-security.data
 
+
+## Ignore downloaded and generated files from shims config directories
+
+# Custom
+**/.emacs.d.shims/*/*.d/custom.el
+
+# ido
+**/.emacs.d.shims/*/*.d/ido.last
+
+# recentf
+**/.emacs.d.shims/*/*.d/recentf
+
+# savehist history file
+**/.emacs.d.shims/*/*.d/history
+
+# saveplace
+**/.emacs.d.shims/*/*.d/places
