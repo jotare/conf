@@ -28,15 +28,16 @@ You'll find the following layout:
   - `<profile-name>.d` for configurations
   - `sources/` for source files (git submodules for doom and spacemacs)
 
-## doom
 
-Doom Emacs
+Currently Emacs configurations (profiles):
+
+- *doom*: Doom emacs
+- *spacemacs*: Spacemacs (with evil keybindings)
+- *newbie*: newbie configuration (copied from newbie)
+- *vanilla*: Vanilla Emacs (same as `emacs -q`, meant to use as white
+  canvas to create new configurations)
 
 ## newbie
 
 Configuration for newbies. It's designed to be plug-and-play and it
 has been created for iTIC newbies.
-
-## spacemacs
-
-Spacemacs with evil bindings
